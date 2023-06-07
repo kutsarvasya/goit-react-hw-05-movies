@@ -1,13 +1,16 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Container } from './MovieItem.staled';
+import { useRef } from 'react';
 
 function MovieItem({ movie }) {
   const year = new Date(movie.release_date).getFullYear();
 
   const location = useLocation();
+  const from = location?.state?.from ?? '/';
+  const savedLocation = useRef(from);
   const navigate = useNavigate();
   const onBtnClick = () => {
-    navigate(location?.state?.from ?? '/');
+    navigate(savedLocation.current);
   };
 
   return (
